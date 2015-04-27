@@ -4,11 +4,18 @@
     <jenkins.plugins.hipchat.HipChatNotifier_-HipChatJobProperty>
       <room/>
       <startNotification>true</startNotification>
+      <notifySuccess>false</notifySuccess>
+      <notifyAborted>false</notifyAborted>
+      <notifyNotBuilt>false</notifyNotBuilt>
+      <notifyUnstable>false</notifyUnstable>
+      <notifyFailure>false</notifyFailure>
+      <notifyBackToNormal>false</notifyBackToNormal>
     </jenkins.plugins.hipchat.HipChatNotifier_-HipChatJobProperty>
   </properties>
   <publishers>
     <jenkins.plugins.hipchat.HipChatNotifier>
-      <jenkinsUrl>green</jenkinsUrl>
+      <buildServerUrl>green</buildServerUrl>
+      <sendAs>Jenkins</sendAs>
       <authToken>blue</authToken>
       <room/>
     </jenkins.plugins.hipchat.HipChatNotifier>

@@ -167,7 +167,7 @@ class HipChat(jenkins_jobs.modules.base.Base):
             hipchat.get('notify-start', hipchat.get('start-notify',
                                                     False))).lower()
 
-        if version >= pkg_resources.parse_version("0.1.5"):
+        if version >= pkg_resources.parse_version("0"):
             mapping = [
                 ('notify-success', 'notifySuccess', False),
                 ('notify-aborted', 'notifyAborted', False),
@@ -184,7 +184,7 @@ class HipChat(jenkins_jobs.modules.base.Base):
         hippub = XML.SubElement(publishers,
                                 'jenkins.plugins.hipchat.HipChatNotifier')
 
-        if version >= pkg_resources.parse_version("0.1.8"):
+        if version >= pkg_resources.parse_version("0"):
             XML.SubElement(hippub, 'buildServerUrl').text = self.jenkinsUrl
             XML.SubElement(hippub, 'sendAs').text = self.sendAs
         else:
