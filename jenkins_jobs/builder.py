@@ -49,11 +49,17 @@ class JenkinsManager(object):
         user = jjb_config.jenkins['user']
         password = jjb_config.jenkins['password']
         timeout = jjb_config.jenkins['timeout']
+        retries = jjb_config.jenkins['retries']
+        retry_wait = jjb_config.jenkins['retry_wait']
 
         if timeout != _DEFAULT_TIMEOUT:
-            self.jenkins = jenkins.Jenkins(url, user, password, timeout)
+            self.jenkins = jenkins.Jenkins(url, user, password, timeout,
+                                           retries=retries,
+                                           retry_wait=retry_wait)
         else:
-            self.jenkins = jenkins.Jenkins(url, user, password)
+            self.jenkins = jenkins.Jenkins(url, user, password,
+                                           retries=retries,
+                                           retry_wait=retry_wait)
 
         self.cache = JobCache(jjb_config.jenkins['url'],
                               flush=jjb_config.builder['flush_cache'])

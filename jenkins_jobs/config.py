@@ -132,6 +132,8 @@ class JJBConfig(object):
         self.plugins_info = None
         self.timeout = builder._DEFAULT_TIMEOUT
         self.allow_empty_variables = None
+        self.retries = 0
+        self.retry_wait = 5
 
         self.jenkins = defaultdict(None)
         self.builder = defaultdict(None)
@@ -255,6 +257,20 @@ class JJBConfig(object):
                 logger.debug("Skipping plugin info retrieval")
                 self.plugins_info = []
 
+        try:
+            self.retries = config.getint('jenkins', 'retries')
+        except (ValueError):
+            raise JenkinsJobsException("Jenkins retries config is invalid")
+        except (TypeError, configparser.NoOptionError):
+            pass
+
+        try:
+            self.retry_wait = config.getfloat('jenkins', 'retry_wait')
+        except (ValueError):
+            raise JenkinsJobsException("Jenkins retry_wait config is invalid")
+        except (TypeError, configparser.NoOptionError):
+            pass
+
         self.recursive = config.getboolean('job_builder', 'recursive')
         self.excludes = config.get('job_builder', 'exclude').split(os.pathsep)
 
@@ -263,6 +279,8 @@ class JJBConfig(object):
         self.jenkins['user'] = self.user
         self.jenkins['password'] = self.password
         self.jenkins['timeout'] = self.timeout
+        self.jenkins['retries'] = self.retries
+        self.jenkins['retry_wait'] = self.retry_wait
 
         self.builder['ignore_cache'] = self.ignore_cache
         self.builder['flush_cache'] = self.flush_cache

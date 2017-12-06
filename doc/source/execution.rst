@@ -75,6 +75,13 @@ jenkins section
   (Optional) The connection timeout (in seconds) to the Jenkins server.
   By default this is set to the system configured socket timeout.
 
+**retries**
+  (Optional) Number of attempts when Jenkins responds with server error to
+  upload and similar actions.
+
+**retry_wait**
+  (Optional) Seconds to wait between ``retries``. Fractions are allowed.
+
 **query_plugins_info**
   Whether to query the Jenkins instance for plugin info. If no configuration
   files are found (either in the default paths or given through the
