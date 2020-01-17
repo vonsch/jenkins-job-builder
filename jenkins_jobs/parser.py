@@ -207,6 +207,11 @@ class YamlParser(object):
         newdata = {}
         newdata.update(defaults)
         newdata.update(data)
+        # WORKAROUND: SETI-2652 Do not apply inject to folder
+        if newdata.get('project-type') == 'folder':
+            for p in newdata.get('properties', []):
+                if not isinstance(p, (str, list)) and p.get('inject'):
+                    newdata['properties'].remove(p)
         return newdata
 
     def _formatDescription(self, job):
