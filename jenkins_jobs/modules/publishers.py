@@ -5805,7 +5805,7 @@ def image_gallery(registry, xml_parent, data):
             gallery_def.get('title', ''))
         image_width = str(gallery_def.get('image-width', ''))
         if image_width:
-            XML.SubElement(gallery_config, 'imageWidth').text = str(
+            XML.SubElement(gallery_config, 'imageWidthText').text = str(
                 image_width)
         XML.SubElement(
             gallery_config,
