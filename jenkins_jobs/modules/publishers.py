@@ -2376,6 +2376,30 @@ def jira(registry, xml_parent, data):
     XML.SubElement(xml_parent, 'hudson.plugins.jira.JiraIssueUpdater')
 
 
+def jira_create_ticket(registry, xml_parent, data):
+    """yaml: jira_create_ticket
+    Create new JIRA issues
+    Requires the Jenkins :jenkins-wiki:`JIRA Plugin <JIRA+Plugin>`.
+
+    Example:
+
+    .. literalinclude::
+        /../../tests/publishers/fixtures/jira_create_ticket001.yaml
+    :language: yaml
+    """
+    notifier = XML.SubElement(
+        xml_parent, 'hudson.plugins.jira.JiraCreateIssueNotifier')
+    mapping = [
+        ('projectKey', 'projectKey', None),
+        ('testDescription', 'testDescription', None),
+        ('assignee', 'assignee', ''),
+        ('component', 'component', ''),
+        ('typeId', 'typeId', 1),
+        ('priorityId', 'priorityId', 1),
+        ('actionIdOnSuccess', 'actionIdOnSuccess', 1)]
+    helpers.convert_mapping_to_xml(notifier, data, mapping, fail_required=True)
+
+
 def growl(registry, xml_parent, data):
     """yaml: growl
     Push notifications to growl client.

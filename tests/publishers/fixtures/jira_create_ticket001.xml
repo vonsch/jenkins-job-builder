@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <publishers>
+    <hudson.plugins.jira.JiraCreateIssueNotifier>
+      <projectKey>JAV</projectKey>
+      <testDescription>This is testDescription</testDescription>
+      <assignee/>
+      <component/>
+      <typeId>1</typeId>
+      <priorityId>1</priorityId>
+      <actionIdOnSuccess>1</actionIdOnSuccess>
+    </hudson.plugins.jira.JiraCreateIssueNotifier>
+  </publishers>
+</project>
