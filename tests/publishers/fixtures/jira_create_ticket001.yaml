@@ -1,0 +1,4 @@
+publishers:
+  - jira_create_ticket:
+      projectKey: JAV
+      testDescription: 'This is testDescription'

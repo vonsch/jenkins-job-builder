@@ -5,20 +5,20 @@
       <imageGalleries>
         <org.jenkinsci.plugins.imagegallery.imagegallery.ArchivedImagesGallery>
           <title>Gallery 1</title>
-          <imageWidth>100</imageWidth>
+          <imageWidthText>100</imageWidthText>
           <markBuildAsUnstableIfNoArchivesFound>True</markBuildAsUnstableIfNoArchivesFound>
           <includes>path/images</includes>
         </org.jenkinsci.plugins.imagegallery.imagegallery.ArchivedImagesGallery>
         <org.jenkinsci.plugins.imagegallery.comparative.InFolderComparativeArchivedImagesGallery>
           <title>Gallery 2</title>
-          <imageWidth>321</imageWidth>
+          <imageWidthText>321</imageWidthText>
           <markBuildAsUnstableIfNoArchivesFound>False</markBuildAsUnstableIfNoArchivesFound>
           <baseRootFolder>path/images2</baseRootFolder>
           <imageInnerWidth>111</imageInnerWidth>
         </org.jenkinsci.plugins.imagegallery.comparative.InFolderComparativeArchivedImagesGallery>
         <org.jenkinsci.plugins.imagegallery.comparative.MultipleFolderComparativeArchivedImagesGallery>
           <title>Gallery 3</title>
-          <imageWidth>222</imageWidth>
+          <imageWidthText>222</imageWidthText>
           <markBuildAsUnstableIfNoArchivesFound>False</markBuildAsUnstableIfNoArchivesFound>
           <baseRootFolder>path/images3</baseRootFolder>
           <imageInnerWidth>1</imageInnerWidth>
