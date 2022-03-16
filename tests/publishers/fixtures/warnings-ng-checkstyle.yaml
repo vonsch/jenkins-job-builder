@@ -1,0 +1,5 @@
+publishers:
+  - warnings-ng:
+      tools:
+        checkstyle:
+          pattern: '**/checkstyle-*xml'

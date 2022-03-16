@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <publishers>
+    <io.jenkins.plugins.analysis.core.steps.IssuesRecorder plugin="warnings-ng">
+      <analysisTools>
+        <io.jenkins.plugins.analysis.warnings.CheckStyle>
+          <id/>
+          <name/>
+          <pattern>**/checkstyle-*xml</pattern>
+          <reportEncoding/>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.CheckStyle>
+      </analysisTools>
+      <minimumSeverity plugin="analysis-model-api">
+        <name>LOW</name>
+      </minimumSeverity>
+      <qualityGates>
+        <io.jenkins.plugins.analysis.core.util.QualityGate>
+          <threshold>1</threshold>
+          <status>WARNING</status>
+          <type>TOTAL_HIGH</type>
+        </io.jenkins.plugins.analysis.core.util.QualityGate>
+        <io.jenkins.plugins.analysis.core.util.QualityGate>
+          <threshold>1</threshold>
+          <status>WARNING</status>
+          <type>TOTAL_NORMAL</type>
+        </io.jenkins.plugins.analysis.core.util.QualityGate>
+      </qualityGates>
+      <sourceCodeEncoding/>
+      <sourceDirectory/>
+      <ignoreQualityGate>false</ignoreQualityGate>
+      <ignoreFailedBuilds>true</ignoreFailedBuilds>
+      <failOnError>false</failOnError>
+      <healthy>0</healthy>
+      <unhealthy>0</unhealthy>
+      <filters/>
+      <isEnabledForFailure>true</isEnabledForFailure>
+      <isAggregatingResults>false</isAggregatingResults>
+      <isBlameDisabled>false</isBlameDisabled>
+      <skipPublishingChecks>false</skipPublishingChecks>
+      <publishAllIssues>false</publishAllIssues>
+      <trendChartType>AGGREGATION_TOOLS</trendChartType>
+      <scm/>
+    </io.jenkins.plugins.analysis.core.steps.IssuesRecorder>
+  </publishers>
+</project>

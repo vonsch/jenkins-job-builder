@@ -3992,6 +3992,94 @@ def warnings(registry, xml_parent, data):
         XML.SubElement(warnings, 'useStableBuildAsReference').text = 'false'
 
 
+def warnings_ng(registry, xml_parent, data):
+    """yaml: warnings-ng
+    The Jenkins Next Generation Warnings plugin collects compiler warnings
+    or issues reported by static analysis tools and visualizes the results.
+    It has built-in support for more than hundred report formats.
+    Requires the Jenkins :jenkins-wiki:`Warnings-NG Plugin
+    <Warnings-NG+Plugin>`
+
+    Full explanation of parameters:
+    - https://www.jenkins.io/doc/pipeline/steps/warnings-ng/
+
+    Sourcecode: https://github.com/jenkinsci/warnings-ng-plugin
+
+    Example for using checkstyle tool:
+
+    .. literalinclude::
+        /../../tests/publishers/fixtures/warnings-ng-checkstyle.yaml
+    :language: yaml
+    """
+
+    warnings_ng = XML.SubElement(xml_parent,
+                                 'io.jenkins.plugins.analysis.core.'
+                                 'steps.IssuesRecorder')
+    warnings_ng.set('plugin', 'warnings-ng')
+    analysis = XML.SubElement(warnings_ng, 'analysisTools')
+    # check tools
+    if not data.get('tools'):
+        raise JenkinsJobsException("`tools` attribute must be exist in "
+                                   "warnings_ng configuration")
+    # only support for checkStyle plugin ATM
+    if not data['tools'].get('checkstyle'):
+        raise JenkinsJobsException("`checkstyle` attribute must be exist in "
+                                   "warnings_ng['tools'] configuration")
+    else:
+        checkstyle_mappings = [
+            ('id', 'id', ''),
+            ('name', 'name', ''),
+            ('pattern', 'pattern', ''),
+            ('report-encoding', 'reportEncoding', ''),
+            ('skip-symbolic-links', 'skipSymbolicLinks', False)
+        ]
+        checkstyle = XML.SubElement(analysis, 'io.jenkins.plugins.analysis.'
+                                              'warnings.CheckStyle')
+        helpers.convert_mapping_to_xml(
+            checkstyle, data['tools']['checkstyle'], checkstyle_mappings,
+            fail_required=True)
+    # minimumSeverity
+    min_severity = XML.SubElement(warnings_ng, 'minimumSeverity')
+    min_severity.set('plugin', 'analysis-model-api')
+    XML.SubElement(min_severity, 'name').text = data.get('minimum-severity',
+                                                         'LOW')
+    # qualityGates
+    quality_gates = XML.SubElement(warnings_ng, 'qualityGates')
+    quality_gates_default = [{'threshold': 1,
+                              'type': 'TOTAL_HIGH',
+                              'status': 'WARNING'},
+                             {'threshold': 1,
+                              'type': 'TOTAL_NORMAL',
+                              'status': 'WARNING'}]
+    quality_gates_confs = data.get('quality-gates', quality_gates_default)
+    for gate_conf in quality_gates_confs:
+        quality_gate = XML.SubElement(quality_gates, 'io.jenkins.plugins.'
+                                                     'analysis.core.util.'
+                                                     'QualityGate')
+        for i in gate_conf.keys():
+            XML.SubElement(quality_gate, i).text = str(gate_conf[i])
+    # other attributes
+    warnings_ng_mappings = [
+        ('source-code-encoding', 'sourceCodeEncoding', ''),
+        ('source-directory', 'sourceDirectory', ''),
+        ('ignore-quality-gate', 'ignoreQualityGate', False),
+        ('ignore-failed-builds', 'ignoreFailedBuilds', True),
+        ('fail-on-error', 'failOnError', False),
+        ('healthy', 'healthy', 0),
+        ('unhealthy', 'unhealthy', 0),
+        ('filters', 'filters', ''),
+        ('enabled-for-failure', 'isEnabledForFailure', True),
+        ('aggregating-results', 'isAggregatingResults', False),
+        ('blame-disabled', 'isBlameDisabled', False),
+        ('skip-publishing-checks', 'skipPublishingChecks', False),
+        ('publish-all-issues', 'publishAllIssues', False),
+        ('trend-chart-type', 'trendChartType', 'AGGREGATION_TOOLS'),
+        ('scm', 'scm', '')
+    ]
+    helpers.convert_mapping_to_xml(
+        warnings_ng, data, warnings_ng_mappings, fail_required=True)
+
+
 def sloccount(registry, xml_parent, data):
     """yaml: sloccount
     Generates the trend report for SLOCCount
