@@ -4052,12 +4052,13 @@ def warnings_ng(registry, xml_parent, data):
                               'type': 'TOTAL_NORMAL',
                               'status': 'WARNING'}]
     quality_gates_confs = data.get('quality-gates', quality_gates_default)
-    for gate_conf in quality_gates_confs:
-        quality_gate = XML.SubElement(quality_gates, 'io.jenkins.plugins.'
-                                                     'analysis.core.util.'
-                                                     'QualityGate')
-        for i in gate_conf.keys():
-            XML.SubElement(quality_gate, i).text = str(gate_conf[i])
+    if quality_gates_confs != '':
+        for gate_conf in quality_gates_confs:
+            quality_gate = XML.SubElement(quality_gates, 'io.jenkins.plugins.'
+                                                         'analysis.core.util.'
+                                                         'QualityGate')
+            for i in gate_conf.keys():
+                XML.SubElement(quality_gate, i).text = str(gate_conf[i])
     # other attributes
     warnings_ng_mappings = [
         ('source-code-encoding', 'sourceCodeEncoding', ''),
