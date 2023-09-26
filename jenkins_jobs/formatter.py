@@ -128,6 +128,8 @@ class CustomFormatter(Formatter):
 
     def get_value(self, key, args, kwargs):
         try:
+            logger.error(key)
+            logger.error(args)
             return Formatter.get_value(self, key, args, kwargs)
         except KeyError:
             if self.allow_empty:
